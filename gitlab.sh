@@ -34,11 +34,14 @@ if [ -n "$SSH_PRIVATE_KEY" ]; then
   # start SSH agent
   # shellcheck disable=SC2046
   eval $(ssh-agent -s)
+  # add private_key
+  mkdir -p ~/.ssh
+  echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  chmod 600 ~/.ssh/id_rsa
   # add key to agent
   ssh-add <(echo "$SSH_PRIVATE_KEY") || { res=$?; echo "could not add ssh key"; exit $res; }
 
   if [ -n "$SSH_SERVER_HOSTKEYS" ]; then
-    mkdir -p ~/.ssh
     # setup known hosts
     echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
   fi
