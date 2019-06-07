@@ -237,7 +237,7 @@ RUN apt-key adv --keyserver "${APTKEY_STORE_SKS}" --recv-key "${HASHKEY_SKS}" \
 RUN sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list \
     && apt-get update -qq \
     && apt-get -qq install --no-install-recommends -y \
-        apt-utils
+        apt-utils \
         build-essential \
         python-catkin-tools \
         python-pip \
